@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/Vue.js"></script>
+    <title></title>
+</head>
+<body>
+
+<!--指令带有前缀 v-，以表示它们是 Vue.js 提供的特殊属性。-->
+<!--
+为了让用户和你的应用进行互动，我们可以用 v-on 指令绑定一个监听事件用于调用我们 Vue 实例中定义的方法-->
+<div id="app-2">
+    <p v-if="isMember">
+        仅会员可见
+    </p>
+
+    <h1 v-if="ok">Yes</h1>
+    <!-- 可以用 v-else 指令给 v-if 添加一个 “else” 块：-->
+    <h1 v-else>No</h1>
+
+    <div v-if="type === 'A'">
+        A
+    </div>
+    <div v-else-if="type === 'B'">
+        B
+    </div>
+    <div v-else-if="type === 'C'">
+        C
+    </div>
+    <div v-else>
+        Not A/B/C
+    </div>
+
+    <div v-show="ok"> show </div>
+    <div v-hide="ok"> hide </div>
+
+
+
+    <!--我们用 v-for 指令根据一组数组的选项列表进行渲染。
+    v-for 指令需要以 item in items 形式的特殊语法，
+    items 是源数据数组并且 item 是数组元素迭代的别名。-->
+    <ul>
+        <li v-for="tmp in list">
+            {{tmp}}
+        </li>
+    </ul>
+    <ol  >
+        <li v-for="(value,key) in list">
+            {{ "key is "+key+ " value is "+value }}
+        </li>
+    </ol>
+
+    <!-- 也可以用 v-for 通过一个对象的属性来迭代。-->
+    <ol  >
+        <li v-for="value in object">
+            {{ value }}
+        </li>
+    </ol>
+    <ol  >
+        <li v-for="(value,key) in object">
+            {{ "key is "+key+ " value is "+value }}
+        </li>
+    </ol>
+
+    <!--v-for 也可以取整数。在这种情况下，它将重复多次模板-->
+    <div>
+        <span v-for="n in 10">{{" "+n}}</span>
+        <br/>
+    </div>
+
+    <button v-on:click="addFunc">add</button>
+
+  <span v-bind:title="message">
+    Hover your mouse over me for a few seconds to see my dynamically bound title!
+  </span>
+</div>
+
+<script>
+    var app2 = new Vue({
+        el: '#app-2',
+        data: {
+            message: 'You loaded this page on ' + new Date(),
+            isMember:true,
+            list:[1,2,3,4,5],
+            ok:false,
+            type:'D',
+            object: {
+                FirstName: 'John',
+                LastName: 'Doe',
+                Age: 30
+            }
+        },
+        methods:{
+            addFunc: function () {
+                this.list.push(this.list.length+1);
+                console.log(this);
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

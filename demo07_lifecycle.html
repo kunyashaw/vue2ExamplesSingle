@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id='example'>
+    {{message}}
+    <button @click="funcClick" >clickMe</button>
+</div>
+<script>
+    var app = new Vue({
+        el: '#example',
+        data: {
+            message: 'Hello VueJS'
+        },
+        methods:{
+          funcClick:function(){
+              this.message = 'being modfied';
+              var num = Math.random()*100;
+              console.log(num);
+              if(num < 80)
+              {
+//                 https://cn.vuejs.org/v2/api/#实例属性
+                  app.$destroy();
+              }
+          }
+        },
+        beforeCreate: function () {
+         console.log('before create');
+        },
+        created: function () {
+            console.log(' created');
+        },
+        beforeMount: function () {
+            console.log('before mount');
+        },
+        mounted: function () {
+            console.log(' mounted');
+        },
+        beforeUpdate: function () {
+            console.log('before update');
+        },
+        updated: function () {
+            console.log(' updated');
+        },
+        beforeDestroy: function () {
+            console.log('before destroy');
+        },
+        destroyed: function () {
+            console.log(' destroyed');
+        }
+    })
+</script>
+</body>
+</html>

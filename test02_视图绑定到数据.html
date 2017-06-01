@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/Vue.js"></script>
+    <title></title>
+</head>
+<body>
+
+<div id="app">
+    <p>{{message}}</p>
+    <input type="text" v-model="message"/>
+</div>
+
+<script>
+//    Vue 提供一个更通用的方法通过 watch 选项，来响应数据的变化。
+// 当你想要在数据变化响应时，执行异步操作或开销较大的操作，这是很有用的。
+    var app = new Vue({
+        el:'#app',
+        data:{
+            message:'Hello VueJS'
+        },
+        watch:{
+            message: function (data) {
+                console.log('watch properity msg is '+data);
+            }
+        }
+    })
+
+    app.$watch('message', function (data) {
+        console.log(data);
+    })
+
+</script>
+
+</body>
+</html>

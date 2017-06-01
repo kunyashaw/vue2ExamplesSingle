@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/Vue.js"></script>
+</head>
+<body>
+
+<!--在模板中绑定表达式是非常便利的，
+但是它们实际上只用于简单的操作。在模板中放入太多的逻辑会让模板过重且难以维护。-->
+
+<div id="app">
+    <p>Computed reversed message: "{{ reversedMessage }}"</p>
+    <p>Computed reversed message: "{{ reversedMessage1() }}"</p>
+</div>
+
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            message:'Hello Git'
+        },
+        methods:{
+            reversedMessage1: function () {
+                return this.message.split('').reverse().join('')
+            }
+        },
+        computed:{
+            // a computed getter
+            reversedMessage: function () {
+                // `this` points to the vm instance
+                return this.message.split('').reverse().join('')
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

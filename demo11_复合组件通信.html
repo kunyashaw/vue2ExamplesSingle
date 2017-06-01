@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id='example'>
+    <to-do-box>
+
+    </to-do-box>
+
+</div>
+<script>
+    
+    Vue.component('to-do-item', {
+        props:['msg'],
+        template: '<li>list item</li>'
+    })
+
+    Vue.component('to-do-box', {
+        template: "<div><to-do-input/> <to-do-list/></div>"
+    })
+    Vue.component('to-do-input', {
+        template: "<div><h1>plz enjoy it</h1> <br> <input type='text'/> <button>add</button></div>"
+    })
+    Vue.component('to-do-list', {
+        template: "<ol> <to-do-item/>  <to-do-item/></ol>"
+    })
+    new Vue({
+        // ...
+        el:'#example'
+    })
+</script>
+</body>
+</html>

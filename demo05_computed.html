@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id='example'>
+    {{message}}
+    <p>计算属性{{operateMsg}}</p>
+    <button @click="funcClick()">clickMe</button>
+</div>
+<script>
+    //模板内的表达式是非常便利的，
+    // 但是它们实际上只用于简单的运算。
+    // 在模板中放入太多的逻辑会让模板过重且难以维护
+    var app = new Vue({
+        el: '#example',
+        data: {
+            message: 'Hello VueJS',
+            progress:'start',
+            count:0
+        },
+//        我们为什么需要缓存？假设我们有一个性能开销比较大的的计算属性 A ，
+// 它需要遍历一个极大的数组和做大量的计算。然后我们可能有其他的计算属性依赖于 A 。
+// 如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用 method 替代
+        computed:{
+            operateMsg: function () {
+                console.log('in operateMsg');
+                   return this.progress;
+
+                //你可能已经注意到我们可以通过调用表达式中的 method 来达到同样的效果
+                //不同的是计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值
+            }
+        },
+        methods:{
+            funcClick: function () {
+                this.count++;
+                if(this.count == 5)
+                {
+                    this.progress = 'middle'
+                }
+                else if(this.count == 10)
+                {
+                    this.progress = 'done'
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

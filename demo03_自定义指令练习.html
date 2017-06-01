@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id='example'>
+    {{message}}
+    <button @click="modifyPrice">clickMe</button>
+    <p v-hello="price" v-if="price <= 105">123</p>
+    <ul v-change>
+        <li>123</li>
+        <li>333</li>
+        <li>123</li>
+    </ul>
+</div>
+<script>
+    var app = new Vue({
+        el: '#example',
+        data: {
+            message: 'Hello VueJS',
+            price:100
+        },
+        methods:{
+            modifyPrice:function(){
+                this.price++;
+            }
+        },
+        directives:{
+            hello:{
+                //bind：只调用一次，在指令第一次绑定到元素上时调用。
+                //update： 在 bind 之后立即以初始值为参数第一次调用，之后每当绑定值变化时调用，参数为新值与旧值。
+                //unbind：只调用一次，在指令从元素上解绑时调用。
+                bind: function () {
+                    console.log('bind hook');
+                },
+                unbind: function () {
+//                    当从DOM中移除时，会调用该处理函数
+                    console.log('unbind hook');
+                },
+                update: function (el,binding) {
+//                    el: 指令所绑定的元素，可以用来直接操作 DOM
+//                    binding: 一个对象，包含以下属性: name: 指令名,value: 指令的绑定值,oldValue: 指令绑定的前一个值...
+                    console.log(binding.value,binding.oldValue);
+                    el.innerHTML = binding.value;//修改元素中显示的内容
+                    if(binding.value == 105)
+                    {
+                        el.remove();
+
+                    }
+                }
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

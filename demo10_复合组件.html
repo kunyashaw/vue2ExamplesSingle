@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id='example'>
+    <list-Component>
+    </list-component>
+    <hr/>
+    <item></item>
+    <hr/>
+    <my-list></my-list>
+
+</div>
+<script>
+    //局部注册
+//    var Item = {
+//        template: '<li>A custom component!</li>'
+//    }
+    var List = {
+        data:function(){
+            return {
+                myList:[12,33,44,55]
+            }
+        },
+        template: "<ul> <li v-for='tmp in myList'>{{tmp}}</li>  <item></item></ul>"
+    }
+    Vue.component('item', {
+        props:['msg'],
+        template: '<li>A custom component!{{msg}}</li>'
+    })
+
+    Vue.component('my-list', {
+        template: "<ol><item msg='123'></item><item></item><item></item></ol>"
+    })
+    new Vue({
+        // ...
+        el:'#example',
+        components: {
+            // <my-component> 将只在父模板可用
+            'list-component': List
+        }
+    })
+</script>
+</body>
+</html>

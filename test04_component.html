@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/Vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <ul>
+        <li v-for="tmp in list">{{tmp}}</li>
+    </ul>
+    <test-component v-for="tmp in list" v-bind:arg="tmp"></test-component>
+</div>
+
+<script>
+//    对于自定义标签名，Vue.js 不强制要求遵循 W3C规则 （小写，并且包含一个短杠），尽管遵循这个规则比较好。
+    Vue.component('test-component',{
+        template:'<h1> {{arg}}  </h1>',
+        props:['arg']
+    })
+
+    var app = new Vue({
+        el:'#app',
+        data:{
+            list:['Mary','Lucy','Jack']
+        },
+        methods:{
+
+        }
+    })
+</script>
+
+</body>
+</html>

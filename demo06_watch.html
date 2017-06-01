@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id='example'>
+    {{message}}
+    <input type="text" v-model="kw"/>
+</div>
+<script>
+    var app = new Vue({
+        el: '#example',
+        data: {
+            message: 'Hello VueJS',
+            kw:''
+        },
+        watch:{
+            kw: function (value) {
+                console.log(value);
+            }
+        }
+    })
+</script>
+</body>
+</html>

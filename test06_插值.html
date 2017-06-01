@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/Vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <p>{{msg}}</p>
+    <p>{{3+2}}</p>
+    <div v-html="msgHtml"></div>
+    <!--Mustache 不能在 HTML 属性中使用，应使用 v-bind 指令-->
+    <div v-bind:id="3"> Bind </div>
+    <div v-bind:id="'list-'+index"> Bind </div>
+</div>
+
+
+<script>
+
+    var app = new Vue({
+        el:'#app',
+        data:{
+            index:0,
+            msg:'Hello Vue',
+            msgHtml:'<h1> Test Header </h1>'
+        },
+        methods:{
+
+        }
+    })
+
+</script>
+
+</body>
+</html>

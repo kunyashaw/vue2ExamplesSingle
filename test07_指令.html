@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/Vue.js"></script>
+</head>
+<body>
+
+<!--指令（Directives）是带有 v- 前缀的特殊属性。
+指令属性的值预期是单一 JavaScript 表达式（除了 v-for，之后再讨论）。
+指令的职责就是当其表达式的值改变时相应地将某些行为应用到 DOM 上-->
+<div id="app">
+    <p v-if="seen">Now you see me</p>
+    <!--一些指令能接受一个“参数”，在指令后以冒号指明。例如， v-bind 指令被用来响应地更新 HTML 属性：-->
+    <div v-on:click="doSomething"> testClick </div>
+</div>
+
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            seen:true
+        },
+        methods:{
+            doSomething: function () {
+                console.log('clicked');
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

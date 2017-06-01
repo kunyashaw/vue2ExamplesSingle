@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/Vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <p>{{name | uppercaseTest}}</p>
+    <p>{{name | uppercaseTest | lowercaseTest}}</p>
+    <p v-bind:class="name | uppercaseTest"></p>
+</div>
+
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            name:'Jack'
+        },
+        methods:{
+
+        },
+        filters:{
+            uppercaseTest: function (str) {
+               return str.toUpperCase();
+            },
+            lowercaseTest: function (str) {
+                return str.toLowerCase();
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

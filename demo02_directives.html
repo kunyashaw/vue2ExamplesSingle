@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id='example'>
+    {{message}}
+    <button v-if="hasMore">加载更多</button>
+    <p v-else="!hasMore">没有更多数据可以加载了</p>
+    <hr/>
+    <p v-if="answer == 1">答案1</p>
+    <p v-else-if="answer == 2">答案2</p>
+    <p v-else-if="answer == 3 ">答案3</p>
+    <ul>
+        <li v-for="item in list">{{item}}</li>
+    </ul>
+    <ul>
+        <li v-for="(item,index) in list" @click="funcClickItem(index,$event)">{{item}}</li>
+    </ul>
+    <ul>
+        <li v-for="(value,key,index) in obj">{{"index is "+index+" value is "+value}}</li>
+    </ul>
+    <hr/>
+    <!-- 绑定html中的属性使用v-bind-->
+    <!--使用v-bind不能直接按照下面的写法，是会报错的 -->
+    <!--<img v-bind:src="img/touxiang.png" alt=""/>-->
+    <img v-bind:src="'img/'+imgName" alt=""/>
+    <!-- 简写-->
+    <img :src="'img/'+imgName" alt=""/>
+    <a v-bind:href="linkUrl">home</a>
+    <a :href="linkUrl"></a>
+
+    <!-- 你可以用 v-model 指令在表单控件元素上创建双向数据绑定。
+    它会根据控件类型自动选取正确的方法来更新元素-->
+    <br/>
+    <!-- 注意：绑定的值必须在data中声明一下-->
+    <input type="text" v-model="userName" />
+    <p>{{'用户输入的内容为'+userName}}</p>
+    <!-- 如果要自动过滤用户输入的首尾空格，
+    可以添加 trim 修饰符到 v-model 上过滤输入-->
+    <!-- 如果想自动将用户的输入值转为 Number 类型（如果原值的转换结果为 NaN 则返回原值），
+    可以添加一个修饰符 number 给 v-model 来处理输入值-->
+    <input type="number" v-model.number="userAge1" />
+    <input type="number" v-model.number="userAge2" />
+    <p>{{userAge1+userAge2}}</p>
+    <hr/>
+    <!-- 绑定事件 v-on 事件类型由参数指定-->
+    <button v-on:click="funcClick">clickMe</button>
+    <!-- 缩写-->
+    <button @click="funcClick">clickMe</button>
+    <input type="text" v-on:change="funcChange"/>
+    <select @change="funcSelect">
+        <option value="r">red</option>
+        <option value="g">green</option>
+        <option value="b">blue</option>
+    </select>
+
+    <form v-on:submit.prevent="funcSubmit">
+        用户是否同意<input type="checkbox" v-model="userIsAgree"/>
+        <br/>
+        <button>提交</button>
+    </form>
+
+    <!-- 只渲染元素和组件一次。
+    随后的重新渲染,元素/组件及其所有的子节点将被视为静态内容并跳过。
+    这可以用于优化更新性能。-->
+    <p >{{count}}</p>
+    <p v-once>{{count}}</p>
+
+
+</div>
+<script>
+    var app = new Vue({
+        el: '#example',
+        data: {
+            message: 'Hello VueJS',
+            hasMore:true,
+            answer:3,
+            list:[100,200,300,100],
+            objList:[{name:'bwm',price:20},{name:'geely',price:30}],
+            obj:{name:'Audi',price:100,size:'big'},
+            imgName:'touxiang.png',
+            linkUrl:'http://www.baidu.com',
+            userName:'zhangsan',
+            userAge1:10,
+            userAge2:10,
+            count:0,
+            userIsAgree:true
+        },
+        methods:{
+            funcClick: function () {
+                console.log('btn is clicked');
+                this.count++;
+            },
+            funcChange:function(e){
+                console.log(e.target.value);
+            },
+            funcSelect:function(e){
+                console.log(e.target.value);
+            },
+            funcSubmit: function (e) {
+                console.log(this.userIsAgree);
+            },
+            funcClickItem:function(index){
+                console.log(index);
+            }
+        }
+    })
+</script>
+</body>
+</html>

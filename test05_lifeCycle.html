@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/Vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <p>{{count}}</p>
+    <button v-on:click="add()">add</button>
+</div>
+
+
+<script>
+
+    var app = new Vue({
+        el:'#app',
+        data:{
+            count:1
+        },
+        methods: {
+          add: function(){
+              this.count++;
+              console.log(this.count);
+          }
+        },
+        created: function () {
+            console.log('created');
+        },
+        mounted: function () {
+            console.log('mounted');
+        },
+        updated: function () {
+            console.log('updated');
+        },
+        destroyed: function () {
+            console.log('destroyed');
+        }
+    })
+
+</script>
+
+</body>
+</html>

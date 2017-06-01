@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+<body>
+<div id='example'>
+    <ul v-change>
+        <li>123</li>
+        <li>333</li>
+        <li>123</li>
+    </ul>
+</div>
+<script>
+    var app = new Vue({
+        el: '#example',
+        data: {
+            message: 'Hello VueJS',
+            price:100
+        },
+        methods:{
+            getRandomColor:function(){
+                var r = Math.floor(Math.random()*256);
+                var g = Math.floor(Math.random()*256);
+                var b = Math.floor(Math.random()*256);
+
+                var R = r.toString(16);
+                var G = g.toString(16);
+                var B = b.toString(16);
+                return '#'+R+G+B
+            }
+    },
+        directives:{
+            getRandomColor:function(){
+                var r = Math.floor(Math.random()*256);
+                var g = Math.floor(Math.random()*256);
+                var b = Math.floor(Math.random()*256);
+
+                var R = r.toString(16);
+                var G = g.toString(16);
+                var B = b.toString(16);
+                return '#'+R+G+B
+            },
+            change:{
+                bind: function (el) {
+                    console.log('ready to bind');
+
+                    var color = '#eeeeee'//getRandomColor();
+                    console.log(this);
+                    console.log(this.getRandomColor());
+                    el.style.backgroundColor = color;
+                }.bind(this)
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

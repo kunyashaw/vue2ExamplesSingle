@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+
+<body>
+    <!--在 Vue.js 中，
+    父子组件的关系可以总结为 props down, events up 。
+    父组件通过 props 向下传递数据给子组件，
+    子组件通过 events 给父组件发送消息
+-->
+
+    <!--父与子通信
+组件实例的作用域是孤立的。这意味着不能(也不应该)在子组件的模板内直接引用父组件的数据。
+要让子组件使用父组件的数据，我们需要通过子组件的props选项。
+子组件要显式地用 props选项声明它期待获得的数据
+-->
+    <div id='example'>
+        <father-component></father-component>
+    </div>
+    <script type="text/x-template" id="father-template">
+        <div>
+            father
+            <br/>
+            <son-component msg='hi lj'></son-component>
+        </div>
+    </script>
+    <script type="text/x-template" id="son-template">
+        <div> son
+            <span>{{this.msg}}</span>
+        </div>
+    </script>
+
+
+    <script>
+        // 在 Vue.js 中，父子组件的关系可以总结为 props down, events up 。
+        //父组件通过 props 向下传递数据给子组件，子组件通过 events 给父组件发送消息。
+        Vue.component('father-component', {
+            template: '#father-template',
+        })
+
+        Vue.component('son-component', {
+            props: ['msg'],
+            template: '#son-template'
+        })
+
+        new Vue({
+            // ...
+            el: '#example'
+        })
+    </script>
+
+</body>
+
+</html>

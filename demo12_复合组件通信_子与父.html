@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+
+<body>
+    <!--父组件是使用 props 传递数据给子组件，
+    但如果子组件要把数据传递回去，应该怎样做？那就是自定义事件！
+使用 $on(eventName) 监听事件
+使用 $emit(eventName) 触发事件
+-->
+    <div id='example'>
+        <father-component></father-component>
+    </div>
+    <script type="text/x-template" id="father-template">
+        <div>
+            father
+            <p v-if='msgFromSon'>{{"msg from son is "+msgFromSon}}</p>
+            <hr>
+            <son-component @recMsg="getMsgFromSon" msg='hi lj'></son-component>
+        </div>
+    </script>
+    <script type="text/x-template" id="son-template">
+        <div> son
+            <p>{{this.msg}}</p>
+            <input type="text" v-model='kw'>
+            <button @click="sendTo">sendToFather</button>
+        </div>
+    </script>
+
+
+    <script>
+        // 在 Vue.js 中，父子组件的关系可以总结为 props down, events up 。
+        //父组件通过 props 向下传递数据给子组件，子组件通过 events 给父组件发送消息。
+        Vue.component('father-component', {
+            template: '#father-template',
+            data: function () {
+                return {
+                    msgFromSon: null
+                }
+            },
+            methods: {
+                getMsgFromSon: function (msg) {
+                    console.log(msg);
+                    this.msgFromSon = msg;
+                    console.log(arguments);
+                }
+            }
+        })
+
+        Vue.component('son-component', {
+            props: ['msg'],
+            template: '#son-template',
+            data: function () {
+                return {
+                    kw: ''
+                }
+            },
+            methods: {
+                sendTo: function () {
+                    console.log('ready to send');
+                    this.$emit('recMsg', this.kw);
+                }
+            }
+        })
+
+        new Vue({
+            // ...
+            el: '#example'
+        })
+    </script>
+
+</body>
+
+</html>

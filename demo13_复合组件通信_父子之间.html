@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+
+<body>
+    <!--       //ref 被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素; 如果用在子组件上，引用就指向组件实例
+        //父模板：<child ref="子名称"></child>
+        //父访问子: 父组件: this.$refs.子名称.子数据/方法名()
+        //子访问父: 子组件: this.$parent.子数据/方法名 ()-->
+    <div id='example'>
+        <father-component></father-component>
+    </div>
+    <script type="text/x-template" id="father-template">
+        <div>
+            father
+            <button @click="checkSon">查看儿子在干嘛</button>
+            <hr>
+            <son-component ref='mySon'></son-component>
+        </div>
+    </script>
+    <script type="text/x-template" id="son-template">
+        <div> son
+            <p>{{this.msg}}</p>
+            <button @click="checkFather">老爷子干嘛呢</button>
+        </div>
+    </script>
+
+
+    <script>
+        Vue.component('father-component', {
+            template: '#father-template',
+            data: function () {
+                return {
+                    msgFromSon: null,
+                    name: 'zhangsantadie'
+                }
+            },
+            methods: {
+                fatherNowDo: function () {
+                    return " is speaking...";
+                },
+                checkSon: function () {
+                    console.log(this.$refs.mySon.name + this.$refs.mySon.sonNowDo())
+                }
+            }
+        })
+
+        Vue.component('son-component', {
+            template: '#son-template',
+            data: function () {
+                return {
+                    name: 'zhangsan'
+                }
+            },
+            methods: {
+                sonNowDo: function () {
+                    return " is studying";
+                },
+                checkFather: function () {
+                    console.log(this.$parent.name + this.$parent.fatherNowDo());
+                }
+            }
+        })
+
+        new Vue({
+            // ...
+            el: '#example'
+        })
+    </script>
+
+</body>
+
+</html>

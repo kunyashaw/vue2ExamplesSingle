@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+
+<body>
+    <!--父组件通过属性传值给子组件，需要子组件指定上props属性-->
+    <div id='example'>
+        <lao-da></lao-da>
+        <hr>
+        <lao-er></lao-er>
+    </div>
+    <script type="text/x-template" id="da-template">
+        <div>
+            <h1>老大</h1>
+            <button @click="tellLaoEr">告诉老二回家收麦子啦！</button>
+        </div>
+    </script>
+    <script type="text/x-template" id="er-template">
+        <div>
+            <h1>老二</h1>
+            <p v-if="msg">{{"收到消息了："+msg}}</p>
+        </div>
+    </script>
+
+
+    <script>
+        var bus = new Vue()
+
+        Vue.component('lao-da', {
+            template: '#da-template',
+            data: function () {
+                return {
+
+                }
+            },
+            methods: {
+                tellLaoEr: function () {
+                    bus.$emit('msgToBrother', '回家收麦子了！');
+                }
+            }
+        })
+
+        Vue.component('lao-er', {
+            template: '#er-template',
+            data: function () {
+                return {
+                    msg: null
+                }
+            },
+            mounted: function () {
+                // @msgToBrother="getMsg($event)"
+                bus.$on('msgToBrother', function (data) {
+                    console.log(data);
+                    this.msg = data;
+                }.bind(this))
+            }
+        })
+
+        new Vue({
+            // ...
+            el: '#example'
+        })
+    </script>
+
+</body>
+
+</html>

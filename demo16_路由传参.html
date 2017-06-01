@@ -7,6 +7,7 @@
     <script src="js/vue-router.js"></script>
     <script src="tpl/main.js"></script>
     <script src="tpl/login.js"></script>
+    <script src="tpl/register.js"></script>
     <title></title>
 </head>
 
@@ -15,15 +16,6 @@
 
         {{message}}
         <h1>Hello App!</h1>
-        <!--
-    路由切换的3种方式：
-    <a href="#/demo02">跳转到demo02</a>
-    <router-link to="demo02">跳转到demo02</router-link>
-    <button v-on:click="jump()">跳转到demo02</button>
-    jump(){
-                this.$router.push('demo02')
-            }
- -->
         <p>
             <!-- 使用 router-link 组件来导航. -->
             <!-- 通过传入 `to` 属性指定链接. -->
@@ -64,7 +56,11 @@
         {
             path: '/myTest',
             component: test
-        }
+        },
+        {
+            path: '/myRegister/:id',
+            component: register
+        },
         ]
 
         // 3. 创建 router 实例，然后传 `routes` 配置

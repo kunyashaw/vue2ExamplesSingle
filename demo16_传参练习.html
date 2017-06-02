@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <script src='js/vue-router.js'></script>
+    <script src='tpl/list.js'></script>
+    <script src='tpl/detail.js'></script>
+    <title></title>
+</head>
+
+<body>
+    <div id='example'>
+        <!--定义加载代码片段的容器-->
+        <router-view></router-view>
+    </div>
+    <script>
+        // 定义路由词典
+        var myRoutes = [
+            {
+                path: '/',
+                component: List
+            },
+            {
+                path: '/myList',
+                component: List
+            },
+            {
+                path: '/myDetail/:id',
+                component: Detail
+            },
+            {
+                path: '*',
+                component: List
+            },
+        ]
+        var myRouter = new VueRouter({
+            routes: myRoutes
+        })
+        var app = new Vue({
+            router: myRouter,
+            el: '#example',
+            data: {
+                message: 'Hello VueJS'
+            }
+        })
+    </script>
+</body>
+
+</html>

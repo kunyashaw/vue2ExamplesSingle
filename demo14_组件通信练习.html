@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title></title>
+</head>
+
+<body>
+    <div id='example'>
+        <chat-room>
+
+        </chat-room>
+    </div>
+
+    <script type='text/x-template' id='chatRoom-template'>
+        <div>
+            <hr/>
+
+            <ul>
+                <li v-for="item in chatList">{{item}}</li>
+            </ul>
+            <hr/>
+            <lucy></lucy>
+            <mike></mike>
+        </div>
+
+    </script>
+    <script type='text/x-template' id='lucy-template'>
+        <div>
+            <label>lucy:</label>
+            <input type="text" placeholder="plz input" v-model='lucyTxt' />
+            <button @click="send">发送</button>
+        </div>
+
+    </script>
+    <script type='text/x-template' id='mike-template'>
+        <div>
+            <label>mike:</label>
+            <input type="text" placeholder="plz input" @change="updateStatus()" v-model='mikeTxt' />
+            <button @click="send">发送</button>
+        </div>
+
+    </script>
+    <script>
+        Vue.component('chat-room', {
+            template: '#chatRoom-template',
+            data: function () {
+                return {
+                    chatList: []
+                }
+            }
+        })
+        Vue.component('lucy', {
+            template: '#lucy-template',
+            data: function () {
+                return {
+                    lucyTxt: '',
+                    timeId: null
+                }
+            },
+            methods: {
+                send: function () {
+                    this.$parent.chatList.push('lucy:' + this.lucyTxt);
+                    this.lucyTxt = "";
+                }
+            }
+        })
+        Vue.component('mike', {
+            template: '#mike-template',
+            data: function () {
+                return {
+                    mikeTxt: ''
+                }
+            },
+            methods: {
+                send: function () {
+                    this.$parent.chatList.push('mike:' + this.mikeTxt);
+                    this.mikeTxt = "";
+
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#example',
+            data: {
+                message: 'Hello VueJS'
+            }
+        })
+    </script>
+</body>
+
+</html>
